@@ -14,7 +14,6 @@ import java.io.File;
 
 
 import com.alibaba.fastjson.JSONObject;
-import sun.jvm.hotspot.debugger.linux.sparc.LinuxSPARCThreadContext;
 import com.google.common.collect.Sets;
 
 

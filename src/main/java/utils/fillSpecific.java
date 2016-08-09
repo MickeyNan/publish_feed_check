@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
 import com.alibaba.fastjson.JSONObject;
-import sun.jvm.hotspot.debugger.linux.sparc.LinuxSPARCThreadContext;
 import com.google.common.collect.Sets;
 public class fillSpecific {
 

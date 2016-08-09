@@ -229,9 +229,9 @@ public class Check{
 		List<String> item_meta_info_keys = new ArrayList<String>(Arrays.asList("timeliness","hot","quality","authority","sensibility"));
 		List<String> text_feature_info_keys = new ArrayList<String>(Arrays.asList("spammer","vulgars","wide_mark","ad","short","repeat","sensitivity_pol"));
 
-		for (int i = 291; i <= 300; i++) {
+		for (int i = 0; i <= 300; i++) {
 
-			list = getData.get("100.67.79.26",8080,"publish","article","publisher","GN6Arp9147MtYE46LY12",10000,i*10000);//从数据库中获取数据
+			list = getData.get("10.103.214.189",27019,"publish","article","publisher","GN6Arp9147MtYE46LY12",10000,i*10000);//从数据库中获取数据
 			Iterator<JSONObject> iter = list.iterator();
 			while (iter.hasNext()) {
 				JSONObject json = iter.next();
