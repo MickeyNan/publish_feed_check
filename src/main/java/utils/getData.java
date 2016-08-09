@@ -30,6 +30,9 @@ import org.bson.Document;
 public class getData {
 	public static List<JSONObject> get(String addres,int port,String db_name,String collection_name,String user_name,String password,int limit,int skip){
 		List<JSONObject> list = new ArrayList<JSONObject>();
+		List<Map<String,String>> params = new ArrayList<Map<String,String>>();
+		params = 
+
 
 		try {
 
