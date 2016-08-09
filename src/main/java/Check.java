@@ -43,28 +43,28 @@ public class Check{
 		specific_ints = new ArrayList<Map<String, String>>();
 
 		try {
-			LineIterator iter_str = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_strings"), "UTF-8");
+			LineIterator iter_str = FileUtils.lineIterator(new File("src/main/java/conf/necessary_strings"), "UTF-8");
 			while (iter_str.hasNext()){
 				final String line = iter_str.nextLine();
 				necessary_strings.add(line);
 			}
 			iter_str.close();
 
-			LineIterator iter_int = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_ints"), "UTF-8");
+			LineIterator iter_int = FileUtils.lineIterator(new File("src/main/java/conf/necessary_ints"), "UTF-8");
 			while (iter_int.hasNext()){
 				final String line = iter_int.nextLine();
 				necessary_ints.add(line);
 			}
 			iter_int.close();
 
-			LineIterator iter_long = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_longs"), "UTF-8");
+			LineIterator iter_long = FileUtils.lineIterator(new File("src/main/java/conf/necessary_longs"), "UTF-8");
 			while (iter_long.hasNext()){
 				final String line = iter_long.nextLine();
 				necessary_longs.add(line);
 			}
 			iter_long.close();
 
-			LineIterator iter_array = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_arrays"), "UTF-8");
+			LineIterator iter_array = FileUtils.lineIterator(new File("src/main/java/conf/necessary_arrays"), "UTF-8");
 			while (iter_array.hasNext()){
 				final String line = iter_array.nextLine();
 				necessary_arrays.add(line);
@@ -75,8 +75,8 @@ public class Check{
 			e.printStackTrace();
 		}
 
-		fillSpecific.fillList(specific_strings, "/home/yannan.wyn/publish_feed_check/src/main/java/conf/specific_strings");
-		fillSpecific.fillList(specific_ints, "/home/yannan.wyn/publish_feed_check/src/main/java/conf/specific_ints");
+		fillSpecific.fillList(specific_strings, "src/main/java/conf/specific_strings");
+		fillSpecific.fillList(specific_ints, "src/main/java/conf/specific_ints");
 
 		//fillOnly.fill(only_zixun,"src/main/java/conf/zixun_only");
 
@@ -210,6 +210,10 @@ public class Check{
 
 	}*/
 	public static void main(String [] args) {
+		getData getdata = new getData();
+		String start_date = "2016-08-01 18:35:16";
+		int count = 0;
+
 		List<JSONObject> list = new ArrayList<JSONObject>();
 		List<String> badcase_ids = new ArrayList<String>();
 		Map<String,String>badcase_map = new HashMap<String,String>();
@@ -235,12 +239,11 @@ public class Check{
 		fillSpecific.fillList(server_params,"/src/main/java/conf/mongo_server_config");
 
 
-
-		for (int i = 120; i <= 330; i++) {
-
-			list = getData.get(10000,i*10000,"src/main/java/conf/mongo_server_config");//从数据库中获取数据
+		while(true) {
+			list = getdata.get(start_date,10000,"src/main/java/conf/mongo_server_config");//从数据库中获取数据
+			start_date = getdata.get_last_time();
 			Iterator<JSONObject> iter = list.iterator();
-			System.out.println(i);
+
 			while (iter.hasNext()) {
 				JSONObject json = iter.next();
 				string_result = feed_check.CheckList(json,feed_check.getStrings(),"string");
@@ -272,15 +275,16 @@ public class Check{
 
 				//System.out.println(list_of_map.size());
 
-				
+
 
 
 
 			}
 
+
 			if (!list_of_map.isEmpty()) {
 				try {
-					PrintWriter writer = new PrintWriter("log"+Integer.toString(i)+".txt", "UTF-8");
+					PrintWriter writer = new PrintWriter("log"+Integer.toString(count)+".txt", "UTF-8");
 					Iterator<Map<String,String>> iter_for_list = list_of_map.iterator();
 					while (iter_for_list.hasNext()) {
 						String str = iter_for_list.next().toString();
@@ -295,14 +299,20 @@ public class Check{
 
 			}
 
+			count += 1;
+			System.out.println(start_date);
+			if (list.size() < 10000)
+				break;
+
 			System.out.println(list.size());
 			System.out.println(list_of_map.size());
 			list.clear();
 			list_of_map.clear();
 
+
 		}
 
-		//System.out.println(list_of_map.size());
+
 
 
 

@@ -31,7 +31,11 @@ import org.bson.Document;
 
 
 public class getData {
-	public static List<JSONObject> get(String update_date,int limit,int skip,String path){
+	private String last_time;
+	public String get_last_time() {
+		return this.last_time;
+	}
+	public  List<JSONObject> get(String update_date,int limit,String path){
 		List<JSONObject> list = new ArrayList<JSONObject>();
 		Map<String,String> param_values = new HashMap<String,String>();
 
@@ -54,7 +58,9 @@ public class getData {
 
 		}
 
+		BasicDBObject query = new BasicDBObject();
 
+		query.put("update_time",new BasicDBObject("$gte",update_date));
 
 		try {
 
@@ -65,14 +71,20 @@ public class getData {
 			//Mongo mongo = new Mongo("localhost", 27017);
 			MongoDatabase db = mongoClient.getDatabase(param_values.get("db_name"));
 			MongoCollection<Document> collection = db.getCollection(param_values.get("collection_name"));
-			FindIterable<Document> findIterable = collection.find().limit(limit).skip(skip);
+			FindIterable<Document> findIterable = collection.find(query).limit(limit);
 			MongoCursor<Document> mongoCursor = findIterable.iterator();
+			JSONObject json = new JSONObject();
+
 			while (mongoCursor.hasNext()){
-				JSONObject json = new JSONObject();
+
 				json = JSON.parseObject(mongoCursor.next().toJson().toString());
 				list.add(json);
+				//System.out.println(json);
+
 
 			}
+
+			this.last_time = json.getString("update_time");
 
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -83,8 +95,12 @@ public class getData {
 	}
 
 	public static void main(String[] args) {
-		List<JSONObject> list = getData.get(1,1,"src/main/java/conf/mongo_server_config");
-		System.out.println(list);
+		getData test = new getData();
+		List<JSONObject> list = test.get("2016-07-28 18:10:16",10000,"src/main/java/conf/mongo_server_config");
+		System.out.println(test.get_last_time());
+		list = test.get(test.get_last_time(),10000,"src/main/java/conf/mongo_server_config");
+		System.out.println(test.get_last_time());
+
 
 	}
 
