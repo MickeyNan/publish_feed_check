@@ -229,13 +229,16 @@ public class Check{
 		List<String> item_meta_info_keys = new ArrayList<String>(Arrays.asList("timeliness","hot","quality","authority","sensibility"));
 		List<String> text_feature_info_keys = new ArrayList<String>(Arrays.asList("spammer","vulgars","wide_mark","ad","short","repeat","sensitivity_pol"));
 
-		while () {
-			
-		}
+
+		List<Map<String,String>> server_params = new ArrayList<Map<String, String>>();
+
+		fillSpecific.fillList(server_params,"/src/main/java/conf/mongo_server_config");
+
+
 
 		for (int i = 120; i <= 330; i++) {
 
-			list = getData.get("10.103.214.189",27019,"publish","article","publisher","GN6Arp9147MtYE46LY12",10000,i*10000);//从数据库中获取数据
+			list = getData.get(10000,i*10000,"src/main/java/conf/mongo_server_config");//从数据库中获取数据
 			Iterator<JSONObject> iter = list.iterator();
 			System.out.println(i);
 			while (iter.hasNext()) {

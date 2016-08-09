@@ -1,8 +1,9 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
 
@@ -21,28 +22,49 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.FindIterable;
-import java.util.Arrays;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.LineIterator;
 
 
 import org.bson.Document;
 
 
 public class getData {
-	public static List<JSONObject> get(String addres,int port,String db_name,String collection_name,String user_name,String password,int limit,int skip){
+	public static List<JSONObject> get(String update_date,int limit,int skip,String path){
 		List<JSONObject> list = new ArrayList<JSONObject>();
-		List<Map<String,String>> params = new ArrayList<Map<String,String>>();
-		params = 
+		Map<String,String> param_values = new HashMap<String,String>();
+
+		try {
+			LineIterator iter_str = FileUtils.lineIterator(new File(path), "UTF-8");
+			while (iter_str.hasNext()) {
+				String line = iter_str.nextLine();
+				String [] array = new String [2];
+				if (line.contains(" ")) {
+					array = line.split(" ");
+					param_values.put(array[0],array[1]);
+
+				}
+				System.out.println(array[1]);
+
+			}
+
+		}catch (IOException e) {
+			e.printStackTrace();
+
+		}
+
 
 
 		try {
 
-			MongoCredential credentialOne = MongoCredential.createCredential(user_name, db_name,password.toCharArray());
-			MongoClient mongoClient = new MongoClient(new ServerAddress(addres,port),Arrays.asList(credentialOne));
+			MongoCredential credentialOne = MongoCredential.createCredential(param_values.get("user_name"), param_values.get("db_name"),param_values.get("password").toCharArray());
+			MongoClient mongoClient = new MongoClient(new ServerAddress(param_values.get("addres"),Integer.parseInt(param_values.get("port"))),Arrays.asList(credentialOne));
 
 
 			//Mongo mongo = new Mongo("localhost", 27017);
-			MongoDatabase db = mongoClient.getDatabase(db_name);
-			MongoCollection<Document> collection = db.getCollection(collection_name);
+			MongoDatabase db = mongoClient.getDatabase(param_values.get("db_name"));
+			MongoCollection<Document> collection = db.getCollection(param_values.get("collection_name"));
 			FindIterable<Document> findIterable = collection.find().limit(limit).skip(skip);
 			MongoCursor<Document> mongoCursor = findIterable.iterator();
 			while (mongoCursor.hasNext()){
@@ -61,7 +83,9 @@ public class getData {
 	}
 
 	public static void main(String[] args) {
-		List<JSONObject> list = getData.get("100.67.79.26",8080,"publish","article","publisher","GN6Arp9147MtYE46LY12",100,2900000);
+		List<JSONObject> list = getData.get(1,1,"src/main/java/conf/mongo_server_config");
+		System.out.println(list);
+
 	}
 
 }
