@@ -43,28 +43,28 @@ public class Check{
 		specific_ints = new ArrayList<Map<String, String>>();
 
 		try {
-			LineIterator iter_str = FileUtils.lineIterator(new File("src/main/java/conf/necessary_strings"), "UTF-8");
+			LineIterator iter_str = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_strings"), "UTF-8");
 			while (iter_str.hasNext()){
 				final String line = iter_str.nextLine();
 				necessary_strings.add(line);
 			}
 			iter_str.close();
 
-			LineIterator iter_int = FileUtils.lineIterator(new File("src/main/java/conf/necessary_ints"), "UTF-8");
+			LineIterator iter_int = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_ints"), "UTF-8");
 			while (iter_int.hasNext()){
 				final String line = iter_int.nextLine();
 				necessary_ints.add(line);
 			}
 			iter_int.close();
 
-			LineIterator iter_long = FileUtils.lineIterator(new File("src/main/java/conf/necessary_longs"), "UTF-8");
+			LineIterator iter_long = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_longs"), "UTF-8");
 			while (iter_long.hasNext()){
 				final String line = iter_long.nextLine();
 				necessary_longs.add(line);
 			}
 			iter_long.close();
 
-			LineIterator iter_array = FileUtils.lineIterator(new File("src/main/java/conf/necessary_arrays"), "UTF-8");
+			LineIterator iter_array = FileUtils.lineIterator(new File("/home/yannan.wyn/publish_feed_check/src/main/java/conf/necessary_arrays"), "UTF-8");
 			while (iter_array.hasNext()){
 				final String line = iter_array.nextLine();
 				necessary_arrays.add(line);
@@ -75,8 +75,8 @@ public class Check{
 			e.printStackTrace();
 		}
 
-		fillSpecific.fillList(specific_strings, "src/main/java/conf/specific_strings");
-		fillSpecific.fillList(specific_ints, "src/main/java/conf/specific_ints");
+		fillSpecific.fillList(specific_strings, "/home/yannan.wyn/publish_feed_check/src/main/java/conf/specific_strings");
+		fillSpecific.fillList(specific_ints, "/home/yannan.wyn/publish_feed_check/src/main/java/conf/specific_ints");
 
 		//fillOnly.fill(only_zixun,"src/main/java/conf/zixun_only");
 
@@ -229,10 +229,11 @@ public class Check{
 		List<String> item_meta_info_keys = new ArrayList<String>(Arrays.asList("timeliness","hot","quality","authority","sensibility"));
 		List<String> text_feature_info_keys = new ArrayList<String>(Arrays.asList("spammer","vulgars","wide_mark","ad","short","repeat","sensitivity_pol"));
 
-		for (int i = 0; i <= 300; i++) {
+		for (int i = 120; i <= 330; i++) {
 
 			list = getData.get("10.103.214.189",27019,"publish","article","publisher","GN6Arp9147MtYE46LY12",10000,i*10000);//从数据库中获取数据
 			Iterator<JSONObject> iter = list.iterator();
+			System.out.println(i);
 			while (iter.hasNext()) {
 				JSONObject json = iter.next();
 				string_result = feed_check.CheckList(json,feed_check.getStrings(),"string");
@@ -287,7 +288,8 @@ public class Check{
 
 			}
 
-
+			System.out.println(list.size());
+			System.out.println(list_of_map.size());
 			list.clear();
 			list_of_map.clear();
 
