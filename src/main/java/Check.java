@@ -10,11 +10,15 @@ import java.io.PrintWriter;
 
 import com.alibaba.fastjson.JSONObject;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import utils.*;
 import com.alibaba.fastjson.JSON;
 
 import com.google.common.collect.Sets;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Component
 public class Check{
@@ -206,10 +210,12 @@ public class Check{
 
 	}
 
-
+	@Scheduled(cron = "0 9 11 * * ?")
 	public  void run() {
 		getData getdata = new getData();
-		String start_date = "2016-08-01 18:35:16";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+
+		String start_date = dateFormat.format(new Date()).toString();
 		int count = 0;
 
 		List<JSONObject> list = new ArrayList<JSONObject>();
