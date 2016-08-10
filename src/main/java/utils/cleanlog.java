@@ -52,10 +52,4 @@ public class cleanlog {
     }
 
 
-
-    public static void main(String[] args) {
-        cleanlog.clean();
-
-    }
-
 }

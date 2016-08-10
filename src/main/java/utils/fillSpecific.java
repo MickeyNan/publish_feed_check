@@ -184,29 +184,4 @@ public class fillSpecific {
     }
 
 
-    public static void main(String[] args) {
-        List<Map<String,String>> list = new ArrayList<Map<String, String>>();
-        fillSpecific.fillList(list,"src/main/resources/input.txt");
-        Set<String> set = Sets.newHashSet("uc_uc","zq_uc","zq_zq","cp_cp","zq_cp");
-        Set<Integer> set2 = Sets.newHashSet();
-        /*
-        System.out.println(set==null);
-        Iterator<Map<String,Object>> iter = list.iterator();
-        while(iter.hasNext()) {
-            Map<String,Object> map = iter.next();
-            String key = (String)map.keySet().toArray()[0];
-            System.out.println(key);
-            //System.out.println(iter.next());
-        }*/
-        JSONObject json =new JSONObject();
-        String str = Reader.getInput("src/main/resources/input.txt");
-        json = JSON.parseObject(str);
-
-        JSONObject result = new JSONObject();
-        result = checkUtils1.specificCheck(json,set,set2,"feed_base_datasource");
-        System.out.println(result);
-    }
-
-
-
 }

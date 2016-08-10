@@ -94,14 +94,4 @@ public class getData {
 
 	}
 
-	public static void main(String[] args) {
-		getData test = new getData();
-		List<JSONObject> list = test.get("2016-07-28 18:10:16",10000,"src/main/java/conf/mongo_server_config");
-		System.out.println(test.get_last_time());
-		list = test.get(test.get_last_time(),10000,"src/main/java/conf/mongo_server_config");
-		System.out.println(test.get_last_time());
-
-
-	}
-
 }
