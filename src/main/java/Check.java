@@ -210,7 +210,7 @@ public class Check{
 
 	}
 
-	@Scheduled(cron = "0 9 11 * * ?")
+	@Scheduled(cron = "0 12 11 * * ?")
 	public  void run() {
 		getData getdata = new getData();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
