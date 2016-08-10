@@ -10,11 +10,13 @@ import java.io.PrintWriter;
 
 import com.alibaba.fastjson.JSONObject;
 
+import org.springframework.stereotype.Component;
 import utils.*;
 import com.alibaba.fastjson.JSON;
 
 import com.google.common.collect.Sets;
 
+@Component
 public class Check{
 	private List<String> necessary_strings;
 	private List<String> necessary_ints;
@@ -204,12 +206,8 @@ public class Check{
 
 	}
 
-	/*
-	public JSONObject checkOnlyElement() {
-		List<String> list = new ArrayList<String>();
 
-	}*/
-	public static void main(String [] args) {
+	public  void run() {
 		getData getdata = new getData();
 		String start_date = "2016-08-01 18:35:16";
 		int count = 0;
