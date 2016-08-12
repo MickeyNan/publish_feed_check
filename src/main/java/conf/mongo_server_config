@@ -1,6 +1,6 @@
-addres 127.0.0.1
-port 27017
-db_name test
+addres 
+port 27019
+db_name publish
 collection_name article
-user_name yannan
-password 1234
+user_name
+password
