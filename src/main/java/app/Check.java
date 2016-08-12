@@ -69,20 +69,20 @@ public class Check{
 		news_text_feature_info = new HashMap<String,String>();
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 
-		fillList.fill(news_strings,online_parent_path + "src/main/java/conf/news_strings");
-		fillList.fill(active_strings,online_parent_path + "src/main/java/conf/active_strings");
-		fillList.fill(news_ints,online_parent_path + "src/main/java/conf/news_ints");
-		fillList.fill(active_ints,online_parent_path + "src/main/java/conf/active_ints");
-		fillList.fill(news_longs,online_parent_path + "src/main/java/conf/news_longs");
-		fillList.fill(active_longs,online_parent_path + "src/main/java/conf/active_longs");
-		fillList.fill(news_arrays,online_parent_path + "src/main/java/conf/news_arrays");
-		fillList.fill(active_arrays,online_parent_path + "src/main/java/conf/active_arrays");
+		fillList.fill(news_strings,"src/main/java/conf/news_strings");
+		fillList.fill(active_strings, "src/main/java/conf/active_strings");
+		fillList.fill(news_ints, "src/main/java/conf/news_ints");
+		fillList.fill(active_ints, "src/main/java/conf/active_ints");
+		fillList.fill(news_longs, "src/main/java/conf/news_longs");
+		fillList.fill(active_longs, "src/main/java/conf/active_longs");
+		fillList.fill(news_arrays, "src/main/java/conf/news_arrays");
+		fillList.fill(active_arrays, "src/main/java/conf/active_arrays");
 
-		fillList.fill(news_objects,online_parent_path + "src/main/java/conf/news_objects");
-		fillList.fill(active_objects,online_parent_path + "src/main/java/conf/active_objects");
+		fillList.fill(news_objects, "src/main/java/conf/news_objects");
+		fillList.fill(active_objects, "src/main/java/conf/active_objects");
 
-		fillMap.fill(news_item_meta_info,online_parent_path + "src/main/java/conf/news_item_meta_info");
-		fillMap.fill(news_text_feature_info,online_parent_path + "src/main/java/conf/news_text_feature_info");
+		fillMap.fill(news_item_meta_info, "src/main/java/conf/news_item_meta_info");
+		fillMap.fill(news_text_feature_info, "src/main/java/conf/news_text_feature_info");
 
 
 
@@ -90,8 +90,8 @@ public class Check{
 		specific_ints = new ArrayList<Map<String, String>>();
 
 
-		fillSpecific.fillList(specific_strings, online_parent_path + "src/main/java/conf/specific_strings");
-		fillSpecific.fillList(specific_ints, online_parent_path + "src/main/java/conf/specific_ints");
+		fillSpecific.fillList(specific_strings,  "src/main/java/conf/specific_strings");
+		fillSpecific.fillList(specific_ints,  "src/main/java/conf/specific_ints");
 	}
 
 	public List<String> getNewsStrings() {return this.news_strings;}
@@ -237,7 +237,7 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 40 14 * * ?")
+	@Scheduled(cron = "0 28 15 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
@@ -280,11 +280,11 @@ public class Check{
 
 		List<Map<String,String>> server_params = new ArrayList<Map<String, String>>();
 
-		fillSpecific.fillList(server_params,online_parent_path + "/src/main/java/conf/mongo_server_config");
+		fillSpecific.fillList(server_params, "/src/main/java/conf/mongo_server_config");
 
 
 		while(true) {
-			list = getdata.get(start_date,10000,online_parent_path + "src/main/java/conf/mongo_server_config");//从数据库中获取数据
+			list = getdata.get(start_date,10000, "src/main/java/conf/mongo_server_config");//从数据库中获取数据
 
 			start_date = getdata.get_last_time();
 			Iterator<JSONObject> iter = list.iterator();
