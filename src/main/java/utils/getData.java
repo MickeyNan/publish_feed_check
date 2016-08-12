@@ -66,7 +66,7 @@ public class getData {
 
 			MongoCredential credentialOne = MongoCredential.createCredential(param_values.get("user_name"), param_values.get("db_name"),param_values.get("password").toCharArray());
 			MongoClient mongoClient = new MongoClient(new ServerAddress(param_values.get("addres"),Integer.parseInt(param_values.get("port"))),Arrays.asList(credentialOne));
-
+			System.out.println(param_values.get("addres"));
 
 			//Mongo mongo = new Mongo("localhost", 27017);
 			MongoDatabase db = mongoClient.getDatabase(param_values.get("db_name"));
