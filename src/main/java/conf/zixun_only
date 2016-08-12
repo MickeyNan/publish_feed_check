@@ -1,13 +1,3 @@
-item_meta_info timeliness float 0,2
-item_meta_info hot float 0,100
-item_meta_info quality float 0,4
-item_meta_info authority float 0,5
-item_meta_info sensibility float 0,2
-text_feature_info spammer int 0,2
-text_feature_info vulgars int 0,2
-text_feature_info wide_mark int 0,2
-text_feature_info ad int 0,2
-text_feature_info short int 0,2
-text_feature_info repeat int 0,2
-text_feature_info sensitivity_pol int 0,2
-
+original
+item_meta_info
+text_feature_info

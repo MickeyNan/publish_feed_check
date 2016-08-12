@@ -35,7 +35,7 @@ public class getData {
 	public String get_last_time() {
 		return this.last_time;
 	}
-	public  List<JSONObject> get(String update_date,int limit,String path){
+	public  List<JSONObject> get(String start_date,int limit,String path){
 		List<JSONObject> list = new ArrayList<JSONObject>();
 		Map<String,String> param_values = new HashMap<String,String>();
 
@@ -60,7 +60,7 @@ public class getData {
 
 		BasicDBObject query = new BasicDBObject();
 
-		query.put("update_time",new BasicDBObject("$gte",update_date));
+		query.put("update_time",new BasicDBObject("$gte",start_date));
 
 		try {
 

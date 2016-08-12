@@ -16,15 +16,20 @@ import java.io.File;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Sets;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class cleanlog {
 
 
-    public static void clean() {
+    public static void clean(Integer count) {
+        getDate which_day = new getDate();
+        String date = which_day.get_end_time();
         try {
-            PrintWriter writer = new PrintWriter("./out", "UTF-8");
-            for (int i = 0; i < 318; i++){
-                String file_name = "logs/log" + Integer.toString(i) + ".txt";
+            PrintWriter writer = new PrintWriter("./out_" + date, "UTF-8");
+            for (int i = 0; i < count; i++){
+                String file_name = "log" + Integer.toString(i) + ".txt";
                 String out = "./total";
                 try {
                     LineIterator iter_str = FileUtils.lineIterator(new File(file_name), "UTF-8");
@@ -38,7 +43,12 @@ public class cleanlog {
 
                 }
 
+                File file = new File(file_name);
+                if(file.delete()) {
 
+                }else{
+                    System.out.println(file_name + " delete failed!");
+                }
             }
 
             writer.flush();

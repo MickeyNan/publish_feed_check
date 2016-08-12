@@ -4,6 +4,7 @@ import java.lang.String;
 import java.util.ArrayList ;
 import java.util.Iterator;
 import java.util.List ;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -88,6 +89,30 @@ public class checkUtils1{
 					}
 					break;
 
+				case "float":
+					if (!(json.get(key) instanceof Double) && json.get(key) != null) {
+						result.put("message",key + " is not double type");
+						result.put("status",404);
+						return result;
+					}
+					if (json.getFloat(key) == null) {
+						result.put("message",key + " is empty");
+						result.put("status",404);
+					}
+					break;
+
+				case "object":
+					if(!(json.get(key) instanceof JSONObject) && json.get(key) != null) {
+						result.put("message",key + " is not json object");
+						result.put("status",404);
+						return result;
+					}
+					if(json.getJSONObject(key) == null) {
+						result.put("message",key + " is empty");
+						result.put("status",404);
+					}
+					break;
+
 
 
 			}
@@ -98,6 +123,98 @@ public class checkUtils1{
 		}
 
 		return result;
+	}
+
+
+	public static JSONObject CheckSpecificWithMap(Map<String,String> map,JSONObject feed,String parent_key,String type) {
+		JSONObject result = new JSONObject();
+		JSONObject child_feed = new JSONObject();
+		try {
+			child_feed = feed.getJSONObject(parent_key);
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			result.put("message",parent_key + " cannot be found");
+			result.put("status",404);
+			return result;
+		}
+
+
+		for (Map.Entry<String,String> entry: map.entrySet()) {
+			String[] str = entry.getValue().split(",");
+			result = CheckSpecific(child_feed,str,entry.getKey(),type);
+			if (result.getInteger("status") != 200){
+				//System.out.println(result);
+				result.put("id",feed.getString("id"));
+				break;
+			}
+
+		}
+
+
+		if (result.getInteger("status") == 200)
+			result.put("message","The Key of This Map Is All Correct");
+
+		return result;
+	}
+	public static JSONObject CheckSpecific(JSONObject json,String[] rangeArray,String key,String type) {
+		JSONObject result = new JSONObject();
+		result.put("message",key + " is OK");
+		result.put("status",200);
+
+		if (type == "string") {
+			try {
+				String value = json.getString(key);
+				for (String range : rangeArray) {
+					if (!range.contains(value)){
+						result.put("message",key + " has unknown value");
+						result.put("status",401);
+
+					}else {
+						result.put("message",key + " is OK");
+						result.put("status",200);
+						break;
+					}
+
+				}
+
+			}catch(Exception e) {
+				e.printStackTrace();
+				result.put("message", key + " has wrong value or type");
+				result.put("status", 402);
+			}
+		} else if (type == "int" || type == "double" || type == "float") {
+			try {
+				Integer value = json.getInteger(key);
+				String value_str = value.toString();
+
+				for (String range : rangeArray) {
+					if (!range.contains(value_str)){
+						result.put("message",key + " has unknown value");
+						result.put("status",401);
+
+					}else {
+						result.put("message",key + " is OK");
+						result.put("status",200);
+						break;
+					}
+
+				}
+
+
+			}catch (Exception e) {
+				e.printStackTrace();
+				result.put("message", key + " has wrong value or type");
+				result.put("status", 402);
+			}
+
+
+		}
+
+
+
+		return result;
+
 	}
 
 	public static JSONObject specificCheck(JSONObject json,Set<String> string, Set<Integer> ints,String key){
