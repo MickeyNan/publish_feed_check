@@ -237,7 +237,7 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 33 14 * * ?")
+	@Scheduled(cron = "0 35 14 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
@@ -284,7 +284,7 @@ public class Check{
 
 
 		while(true) {
-			list = getdata.get(start_date,10000,"src/main/java/conf/mongo_server_config");//从数据库中获取数据
+			list = getdata.get(start_date,10000,online_parent_path + "src/main/java/conf/mongo_server_config");//从数据库中获取数据
 
 			start_date = getdata.get_last_time();
 			Iterator<JSONObject> iter = list.iterator();
