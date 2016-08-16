@@ -238,7 +238,7 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 0 10 * * ?")
+	@Scheduled(cron = "0 0 12 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
