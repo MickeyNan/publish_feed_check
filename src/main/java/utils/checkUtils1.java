@@ -107,8 +107,13 @@ public class checkUtils1{
 						result.put("status",404);
 						return result;
 					}
+					if (key.contains("activity_appurl")) {
+						System.out.println(json.getString("type"));
+						//System.out.println(key + " " + json.getJSONObject(key) + " " + (json.get(key) instanceof JSONObject) + " " + json.get("activity_appurl"));
+					}
+
 					if(json.getJSONObject(key) == null) {
-						result.put("message",key + " is empty");
+						result.put("message", key + " is empty");
 						result.put("status",404);
 					}
 					break;

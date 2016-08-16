@@ -150,6 +150,7 @@ public class Check{
 		result.put("status",200);
 		Iterator<String> iter = list.iterator();
 		while (iter.hasNext()){
+
 			result = checkInFeedType.check(json,iter.next(),type);
 			if (result.getInteger("status") != 200) {
 				result.put("id",json.get("id"));
@@ -237,7 +238,7 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 42 15 * * ?")
+	@Scheduled(cron = "0 0 10 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
@@ -374,6 +375,11 @@ public class Check{
 
 
 		cleanlog.clean(count);
+		try{
+			EmailUtil.sendEmail("smtp.alibaba-inc.com", 465, "yannan.wyn@alibaba-inc.com", "wynmyy+5982760", "yannan.wyn@alibaba-inc.com;zhen.zhang@alibaba-inc.com;linnan.ln@alibaba-inc.com", "每日扫库", "扫库的结果见附件,选择对应日期查看", Arrays.asList(new File("statistics/").listFiles()));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 
 

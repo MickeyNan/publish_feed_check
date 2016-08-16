@@ -27,7 +27,7 @@ public class cleanlog {
         getDate which_day = new getDate();
         String date = which_day.get_end_time();
         try {
-            PrintWriter writer = new PrintWriter("./out_" + date, "UTF-8");
+            PrintWriter writer = new PrintWriter("statistics/out_" + date, "UTF-8");
             for (int i = 0; i < count; i++){
                 String file_name = "log" + Integer.toString(i) + ".txt";
                 String out = "./total";
