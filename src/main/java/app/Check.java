@@ -154,6 +154,7 @@ public class Check{
 			result = checkInFeedType.check(json,iter.next(),type);
 			if (result.getInteger("status") != 200) {
 				result.put("id",json.get("id"));
+				break;
 			}
 		}
 		return result;
@@ -238,12 +239,12 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 05 18 * * ?")
+	@Scheduled(cron = "0 35 10 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
 		getDate which_day = new getDate();
-		String start_date = which_day.get_start_time();
+		String start_date = "2016-08-16 18:38:00";
 		String end_date = which_day.get_end_time();
 
 		int count = 0;
@@ -315,13 +316,13 @@ public class Check{
 					active_int_result = feed_check.CheckInList(json, feed_check.getActiveInts(), "int");
 					active_long_result = feed_check.CheckInList(json, feed_check.getActiveLongs(), "long");
 					active_array_result = feed_check.CheckInList(json, feed_check.getActiveArrays(), "array");
-					active_object_result = feed_check.CheckInList(json, feed_check.getActiveObjects(), "object");
-
+					//active_object_result = feed_check.CheckInList(json, feed_check.getActiveObjects(), "object");
 					badcaseSelect.select_into_map(list_of_map, active_string_result);
 					badcaseSelect.select_into_map(list_of_map, active_int_result);
 					badcaseSelect.select_into_map(list_of_map, active_long_result);
 					badcaseSelect.select_into_map(list_of_map, active_array_result);
-					badcaseSelect.select_into_map(list_of_map, active_object_result);
+					//badcaseSelect.select_into_map(list_of_map, active_object_result);
+
 				}
 
 
@@ -375,11 +376,8 @@ public class Check{
 
 
 		cleanlog.clean(count);
-		try{
-			EmailUtil.sendEmail("smtp.alibaba-inc.com", 465, "yannan.wyn@alibaba-inc.com", "wynmyy+5982760", "yannan.wyn@alibaba-inc.com", "每日扫库", "扫库的结果见附件,选择对应日期查看", Arrays.asList(new File("statistics/").listFiles()));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+
+		
 
 
 

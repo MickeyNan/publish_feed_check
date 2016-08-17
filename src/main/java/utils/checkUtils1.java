@@ -55,6 +55,11 @@ public class checkUtils1{
 						result.put("status",404);
 						return result;
 					}
+					if(json.get(key) == null) {
+						result.put("message",key + " is empty");
+						result.put("status",404);
+						return result;
+					}
 					try {
 						if(!(json.getJSONObject(key).containsKey("$numberLong"))) {
 							result.put("message",key + " is not Long type");
