@@ -239,12 +239,12 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 45 10 * * ?")
+	@Scheduled(cron = "0 0 12 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
 		getDate which_day = new getDate();
-		String start_date = "2016-08-16 18:38:00";
+		String start_date = which_day.get_start_time();
 		String end_date = which_day.get_end_time();
 
 		int count = 0;
@@ -377,7 +377,7 @@ public class Check{
 
 		cleanlog.clean(count);
 
-
+		
 
 
 
