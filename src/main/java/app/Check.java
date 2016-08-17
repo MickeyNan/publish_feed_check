@@ -239,7 +239,7 @@ public class Check{
 		return result;
 	}
 
-	@Scheduled(cron = "0 35 10 * * ?")
+	@Scheduled(cron = "0 45 10 * * ?")
 	public  void run() {
 		String online_parent_path = "/home/yannan.wyn/publish_feed_check/";
 		getData getdata = new getData();
@@ -377,7 +377,7 @@ public class Check{
 
 		cleanlog.clean(count);
 
-		
+
 
 
 

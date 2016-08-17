@@ -1,5 +1,8 @@
 package utils;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
@@ -27,5 +30,17 @@ public class getDate {
         return start;
     }
 
+    /*
+    public static void main(String [] args) {
+        JSONObject feed = new JSONObject();
+        JSONObject test = new JSONObject();
+        JSONArray array = new JSONArray();
+        array.add(test);
+        array.add(1);
+        for(int i = 0;i < array.size();i++) {
+            JSONObject test = array.getJSONObject()
+        }
+
+    }*/
 
 }
